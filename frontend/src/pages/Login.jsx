@@ -19,11 +19,10 @@ const Login = () => {
     try {
       const res = await API.post("/auth/login", formData);
 
-      // Update context with login function
       login(res.data.token);  
 
       alert("Login Successful!");
-      navigate("/"); // now ProtectedRoute sees token
+      navigate("/"); 
     } catch (err) {
       alert("Invalid Credentials");
     }
