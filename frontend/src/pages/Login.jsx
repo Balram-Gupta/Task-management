@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import {useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import { AuthContext } from "../context/AuthContext";
 import "../App.css";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // use context
 
   const [formData, setFormData] = useState({
     email: "",
@@ -17,11 +19,11 @@ const Login = () => {
     try {
       const res = await API.post("/auth/login", formData);
 
-      localStorage.setItem("token", res.data.token);
+      // Update context with login function
+      login(res.data.token);  
 
       alert("Login Successful!");
-
-      navigate("/"); 
+      navigate("/"); // now ProtectedRoute sees token
     } catch (err) {
       alert("Invalid Credentials");
     }
@@ -58,7 +60,6 @@ const Login = () => {
           <button className="btn login-btn">Login</button>
         </form>
 
-        {/* Register Link */}
         <p className="register-text">
           Don't have an account?{" "}
           <span onClick={() => navigate("/register")}>
