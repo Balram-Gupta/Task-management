@@ -6,7 +6,7 @@ import "../App.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // use context
+  const { login } = useContext(AuthContext); 
 
   const [formData, setFormData] = useState({
     email: "",
@@ -19,11 +19,10 @@ const Login = () => {
     try {
       const res = await API.post("/auth/login", formData);
 
-      // Update context with login function
       login(res.data.token);  
 
       alert("Login Successful!");
-      navigate("/"); // now ProtectedRoute sees token
+      navigate("/"); 
     } catch (err) {
       alert("Invalid Credentials");
     }
