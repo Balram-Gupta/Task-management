@@ -37,8 +37,6 @@ cd frontend
 npm install
 npm start
 
-5.
-
 
 ## API Routes
 
